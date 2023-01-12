@@ -1,0 +1,27 @@
+.card {
+  border: 2px solid #f4f4f4;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.cardDetails {
+  color: #f8f8f8;
+  text-align: center;
+  width: 90%;
+  margin: 0 5px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}

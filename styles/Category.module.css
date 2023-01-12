@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.blackBox {
+  background: #121212;
+  color: #121212;
+  width: 20px;
+  cursor: default;
+}
+
+/* Buttons */
+.button {
+  color: #121212;
+  display: block;
+  padding: 8px 0;
+  width: 150px;
+  border: none;
+  border-radius: 4px;
+  font-family: "Segoe UI";
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.newTopicButton {
+  background: darkslateblue;
+  margin: 20px;
+}
+
+.topicButton {
+  background: rgb(89, 176, 89);
+  margin: 5px;
+}
+
+.newCardButton {
+  background: #121212;
+  color: rgb(89, 176, 89);
+  width: 20px;
+  align-self: center;
+}
+
+.newTopicButton:hover,
+.topicButton:hover,
+.newCardButton:hover {
+  opacity: 0.7;
+}
+
+/* Toggle */
+.hide {
+  display: none;
+}
+
+.show {
+  display: flex;
+}

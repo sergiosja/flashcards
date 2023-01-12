@@ -1,0 +1,24 @@
+.modal {
+  color: #f8f8f8;
+  margin: 20px auto;
+  width: 40%;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input {
+  margin-bottom: 5px;
+  font-family: monospace;
+}
+
+.button {
+  border: none;
+  padding: 7px 0;
+  margin-top: 2px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+}
