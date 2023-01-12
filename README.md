@@ -2,7 +2,9 @@
 
 ## Dependencies
 
-Npm. If you have npm installed I _think_ you can get away with just running
+- npm
+
+If you have npm installed I _think_ you can get away with just running
 
 ```
 npm install
@@ -18,7 +20,7 @@ Start the client with
 npm run dev
 ```
 
-and spin up the server with (either make sure port 8080 is available or change this in the `package.json` file)
+and spin up the server with (in another terminal) (also either make sure port 8080 is available or change this in the `package.json` file)
 
 ```
 npm run db
