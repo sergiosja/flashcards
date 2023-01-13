@@ -1,4 +1,4 @@
-# Flashcards
+# flashcards
 
 ## Dependencies
 
@@ -36,8 +36,8 @@ Every category has contains a list of topics. Every topic contains a list of (fl
 
 To create new categories and topics, enter a title and press enter. No buttons!
 
-To create a new card, press the + sign to the left of a topic and enter a title and an answer, before pressing the button underneath the text area.
+To create a new card, press the + sign to the right of a topic and enter a title and an answer, before pressing the button underneath the textarea.
 
-To toggle the visibility of a card's answer, press space. To swipe through the cards, use the left- and right arrow keys. Again, no buttons!
+To toggle the visibility of a card's answer, press space. To swipe through the cards, use the left and right arrow keys. Again, no buttons!
 
 That's it really
