@@ -32,7 +32,7 @@ I wanted to try out flashcards to help me study. Wasn't satisfied with the stuff
 
 ### Use
 
-Every category has contains a list of topics. Every topic contains a list of (flash)cards. That's the hierarchy.
+Every category has a list of topics. Every topic has a list of (flash)cards. That's the hierarchy.
 
 To create new categories and topics, enter a title and press enter. No buttons!
 
