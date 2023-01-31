@@ -39,3 +39,7 @@ To create a new card, press the + sign to the left of a topic and enter a title 
 To toggle the visibility of a card's answer, press space. To swipe through the cards, use the left- and right arrow keys. Again, no buttons!
 
 That's it really
+
+## Future work
+
+- Deleting categories, topics and cards

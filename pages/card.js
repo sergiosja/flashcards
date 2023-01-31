@@ -8,14 +8,15 @@ const Card = () => {
   const router = useRouter();
   const { title, cards } = router.query;
   const parsedCards = JSON.parse(decodeURIComponent(cards));
-  console.log("router query ->", router.query);
-  console.log("cards ->", parsedCards);
+  const shuffledParsedCards = parsedCards.sort((a, b) => 0.5 - Math.random());
 
-  const PCN = parsedCards.length - 1;
+  const PCN = shuffledParsedCards.length - 1;
 
   // Deciding which card to show
   const firstCard =
-    PCN > 0 ? parsedCards[0] : { title: "default", answer: "default", id: 0 };
+    PCN > 0
+      ? shuffledParsedCards[0]
+      : { title: "default", answer: "default", id: 0 };
   const [currentCard, setCurrentCard] = useState(firstCard);
 
   // Swiping stuff
@@ -29,17 +30,17 @@ const Card = () => {
 
   const swipeLeft = (index) => {
     if (index === 0) {
-      setCurrentCard(parsedCards[PCN]);
+      setCurrentCard(shuffledParsedCards[PCN]);
     } else {
-      setCurrentCard(parsedCards[index - 1]);
+      setCurrentCard(shuffledParsedCards[index - 1]);
     }
   };
 
   const swipeRight = (index) => {
     if (index === PCN) {
-      setCurrentCard(parsedCards[0]);
+      setCurrentCard(shuffledParsedCards[0]);
     } else {
-      setCurrentCard(parsedCards[index + 1]);
+      setCurrentCard(shuffledParsedCards[index + 1]);
     }
   };
 
@@ -58,7 +59,9 @@ const Card = () => {
 
   useEffect(() => {
     if (swipingPermission) {
-      const index = parsedCards.findIndex((c) => c.title === currentCard.title);
+      const index = shuffledParsedCards.findIndex(
+        (c) => c.title === currentCard.title
+      );
       if (swipeDirection === "left") swipeLeft(index);
       else if (swipeDirection === "right") swipeRight(index);
     } else {
@@ -88,8 +91,9 @@ const Card = () => {
 
       <div className={styles.status}>
         <p>
-          {parsedCards.findIndex((c) => c.title === currentCard.title) + 1}/
-          {parsedCards.length}
+          {shuffledParsedCards.findIndex((c) => c.title === currentCard.title) +
+            1}
+          /{shuffledParsedCards.length}
         </p>
       </div>
     </>
