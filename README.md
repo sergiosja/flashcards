@@ -10,7 +10,7 @@ If you have npm installed I _think_ you can get away with just running
 npm install
 ```
 
-In any case, I have used Next.js with a JSON server. Create a folder called data and put the db.json file inside it.
+In any case, I have used Next.js with a JSON server. Create a folder called data and move [this](https://github.com/sergiosja/flashcards/blob/main/db.json) file inside it.
 
 ## Run
 
