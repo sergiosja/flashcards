@@ -8,14 +8,18 @@ const Card = () => {
   const router = useRouter();
   const { title, cards } = router.query;
   const parsedCards = JSON.parse(decodeURIComponent(cards));
-  console.log("router query ->", router.query);
-  console.log("cards ->", parsedCards);
 
   const PCN = parsedCards.length - 1;
 
   // Deciding which card to show
   const firstCard =
-    PCN > 0 ? parsedCards[0] : { title: "default", answer: "default", id: 0 };
+    PCN > 0
+      ? parsedCards[0]
+      : {
+          title: "No cards yet!",
+          answer: "add cards from the menu :=)",
+          id: 0,
+        };
   const [currentCard, setCurrentCard] = useState(firstCard);
 
   // Swiping stuff
@@ -64,11 +68,9 @@ const Card = () => {
     } else {
       setCardAnswerClass(cardAnswerClassState ? styles.show : styles.hide);
     }
-
     document.addEventListener("keydown", keyDownHandler);
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
+
+    return () => document.removeEventListener("keydown", keyDownHandler);
   }, [cardAnswerClassState, swipeState]);
 
   return (
