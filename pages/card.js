@@ -8,15 +8,18 @@ const Card = () => {
   const router = useRouter();
   const { title, cards } = router.query;
   const parsedCards = JSON.parse(decodeURIComponent(cards));
-  const shuffledParsedCards = parsedCards.sort((a, b) => 0.5 - Math.random());
 
-  const PCN = shuffledParsedCards.length - 1;
+  const PCN = parsedCards.length - 1;
 
   // Deciding which card to show
   const firstCard =
     PCN > 0
-      ? shuffledParsedCards[0]
-      : { title: "default", answer: "default", id: 0 };
+      ? parsedCards[0]
+      : {
+          title: "No cards yet!",
+          answer: "add cards from the menu :=)",
+          id: 0,
+        };
   const [currentCard, setCurrentCard] = useState(firstCard);
 
   // Swiping stuff
@@ -30,17 +33,17 @@ const Card = () => {
 
   const swipeLeft = (index) => {
     if (index === 0) {
-      setCurrentCard(shuffledParsedCards[PCN]);
+      setCurrentCard(parsedCards[PCN]);
     } else {
-      setCurrentCard(shuffledParsedCards[index - 1]);
+      setCurrentCard(parsedCards[index - 1]);
     }
   };
 
   const swipeRight = (index) => {
     if (index === PCN) {
-      setCurrentCard(shuffledParsedCards[0]);
+      setCurrentCard(parsedCards[0]);
     } else {
-      setCurrentCard(shuffledParsedCards[index + 1]);
+      setCurrentCard(parsedCards[index + 1]);
     }
   };
 
@@ -59,19 +62,15 @@ const Card = () => {
 
   useEffect(() => {
     if (swipingPermission) {
-      const index = shuffledParsedCards.findIndex(
-        (c) => c.title === currentCard.title
-      );
+      const index = parsedCards.findIndex((c) => c.title === currentCard.title);
       if (swipeDirection === "left") swipeLeft(index);
       else if (swipeDirection === "right") swipeRight(index);
     } else {
       setCardAnswerClass(cardAnswerClassState ? styles.show : styles.hide);
     }
-
     document.addEventListener("keydown", keyDownHandler);
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
+
+    return () => document.removeEventListener("keydown", keyDownHandler);
   }, [cardAnswerClassState, swipeState]);
 
   return (
@@ -91,9 +90,8 @@ const Card = () => {
 
       <div className={styles.status}>
         <p>
-          {shuffledParsedCards.findIndex((c) => c.title === currentCard.title) +
-            1}
-          /{shuffledParsedCards.length}
+          {parsedCards.findIndex((c) => c.title === currentCard.title) + 1}/
+          {parsedCards.length}
         </p>
       </div>
     </>
