@@ -3,19 +3,33 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../styles/Card.module.css";
 
+interface CardObjectType {
+  title: string;
+  answer: string;
+  id: number;
+}
+
+// anys
+
 const Card = () => {
   // Unpacking props sent via Link component in topic.js
   const router = useRouter();
-  const { title, cards } = router.query;
-  const parsedCards = JSON.parse(decodeURIComponent(cards));
-  console.log("router query ->", router.query);
-  console.log("cards ->", parsedCards);
+  const { title, cards }: any = router.query;
+  const parsedCards: Array<CardObjectType> = JSON.parse(
+    decodeURIComponent(cards)
+  );
 
   const PCN = parsedCards.length - 1;
 
   // Deciding which card to show
   const firstCard =
-    PCN > 0 ? parsedCards[0] : { title: "default", answer: "default", id: 0 };
+    PCN > 0
+      ? parsedCards[0]
+      : {
+          title: "No cards yet!",
+          answer: "add cards from the menu :=)",
+          id: 0,
+        };
   const [currentCard, setCurrentCard] = useState(firstCard);
 
   // Swiping stuff
@@ -27,7 +41,7 @@ const Card = () => {
   const [cardAnswerClass, setCardAnswerClass] = useState(styles.hide);
   const [cardAnswerClassState, setCardAnswerClassState] = useState(false);
 
-  const swipeLeft = (index) => {
+  const swipeLeft = (index: number) => {
     if (index === 0) {
       setCurrentCard(parsedCards[PCN]);
     } else {
@@ -35,7 +49,7 @@ const Card = () => {
     }
   };
 
-  const swipeRight = (index) => {
+  const swipeRight = (index: number) => {
     if (index === PCN) {
       setCurrentCard(parsedCards[0]);
     } else {
@@ -43,7 +57,7 @@ const Card = () => {
     }
   };
 
-  const keyDownHandler = (e) => {
+  const keyDownHandler = (e: any) => {
     if (e.code === "Space") {
       setSwipingPermission(false);
       setCardAnswerClassState(!cardAnswerClassState);
@@ -58,17 +72,17 @@ const Card = () => {
 
   useEffect(() => {
     if (swipingPermission) {
-      const index = parsedCards.findIndex((c) => c.title === currentCard.title);
+      const index = parsedCards.findIndex(
+        (c: any) => c.title === currentCard.title
+      );
       if (swipeDirection === "left") swipeLeft(index);
       else if (swipeDirection === "right") swipeRight(index);
     } else {
       setCardAnswerClass(cardAnswerClassState ? styles.show : styles.hide);
     }
-
     document.addEventListener("keydown", keyDownHandler);
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
+
+    return () => document.removeEventListener("keydown", keyDownHandler);
   }, [cardAnswerClassState, swipeState]);
 
   return (
@@ -88,8 +102,8 @@ const Card = () => {
 
       <div className={styles.status}>
         <p>
-          {parsedCards.findIndex((c) => c.title === currentCard.title) + 1}/
-          {parsedCards.length}
+          {parsedCards.findIndex((c: any) => c.title === currentCard.title) + 1}
+          /{parsedCards.length}
         </p>
       </div>
     </>

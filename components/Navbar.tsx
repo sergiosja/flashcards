@@ -4,7 +4,7 @@ import styles from "../styles/Navbar.module.css";
 const Navbar = () => {
   const router = useRouter();
 
-  const back = (way) => {
+  const back = (way: string) => {
     if (!router.query.categoryId || way === "home") {
       router.push("/");
     } else {

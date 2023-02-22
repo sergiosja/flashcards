@@ -31,13 +31,13 @@
 }
 
 .topicButton {
-  background: rgb(89, 176, 89);
+  background: #52aca5;
   margin: 5px;
 }
 
 .newCardButton {
   background: #121212;
-  color: rgb(89, 176, 89);
+  color: #52aca5;
   width: 20px;
   align-self: center;
 }

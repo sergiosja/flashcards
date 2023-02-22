@@ -14,30 +14,18 @@ In any case, I have used Next.js with a JSON server. Create a folder called data
 
 ## Run
 
-Start the client with
+Spin up the "database" API with
 
 ```
-npm run dev
+npm run server
 ```
 
-and spin up the server with (in another terminal) (also either make sure port 8080 is available or change this in the `package.json` file)
+and the client with
 
 ```
-npm run db
+npm run client
 ```
 
 ## What's this anyway?
 
-I wanted to try out flashcards to help me study. Wasn't satisfied with the stuff I found online. I've wanted to learn Next.js for a while and figured this could be a way to do so.
-
-### Use
-
-Every category has a list of topics. Every topic has a list of (flash)cards. That's the hierarchy.
-
-To create new categories and topics, enter a title and press enter. No buttons!
-
-To create a new card, press the + sign to the right of a topic and enter a title and an answer, before pressing the button underneath the textarea.
-
-To toggle the visibility of a card's answer, press space. To swipe through the cards, use the left and right arrow keys. Again, no buttons!
-
-That's it really
+I wanted to try out flashcards to help me study, but wasn't satisfied with the OG paper stuff. After checking out a couple of web options I figured they were all bloated. Therefore I created the tiniest flashcards web-app I could imagine 😄
