@@ -2,12 +2,21 @@ import { useState } from "react";
 import styles from "../styles/Modal.module.css";
 import axios from "axios";
 
-const Modal = ({ category, matter, index, onUpdate }) => {
+// løs opp alle "any"s
+
+interface Props {
+  category: any | null | undefined;
+  matter: any | null | undefined;
+  index: any | null | undefined;
+  onUpdate: any | null | undefined;
+}
+
+const Modal = ({ category, matter, index, onUpdate }: Props) => {
   const [title, setTitle] = useState("");
   const [answer, setAnswer] = useState("");
 
   // Add new category
-  const addNewCategory = async (e) => {
+  const addNewCategory = async (e: any) => {
     e.preventDefault();
 
     await axios
@@ -21,7 +30,7 @@ const Modal = ({ category, matter, index, onUpdate }) => {
   };
 
   // Add new topic
-  const addNewTopic = async (e) => {
+  const addNewTopic = async (e: any) => {
     e.preventDefault();
 
     const newTopics = {
@@ -43,7 +52,7 @@ const Modal = ({ category, matter, index, onUpdate }) => {
   };
 
   // Add new card
-  const addNewCard = async (e) => {
+  const addNewCard = async (e: any) => {
     e.preventDefault();
 
     const cards = category.topics[index - 1].cards;

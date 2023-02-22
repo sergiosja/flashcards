@@ -3,11 +3,21 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../styles/Card.module.css";
 
+interface CardObjectType {
+  title: string;
+  answer: string;
+  id: number;
+}
+
+// anys
+
 const Card = () => {
   // Unpacking props sent via Link component in topic.js
   const router = useRouter();
-  const { title, cards } = router.query;
-  const parsedCards = JSON.parse(decodeURIComponent(cards));
+  const { title, cards }: any = router.query;
+  const parsedCards: Array<CardObjectType> = JSON.parse(
+    decodeURIComponent(cards)
+  );
 
   const PCN = parsedCards.length - 1;
 
@@ -31,7 +41,7 @@ const Card = () => {
   const [cardAnswerClass, setCardAnswerClass] = useState(styles.hide);
   const [cardAnswerClassState, setCardAnswerClassState] = useState(false);
 
-  const swipeLeft = (index) => {
+  const swipeLeft = (index: number) => {
     if (index === 0) {
       setCurrentCard(parsedCards[PCN]);
     } else {
@@ -39,7 +49,7 @@ const Card = () => {
     }
   };
 
-  const swipeRight = (index) => {
+  const swipeRight = (index: number) => {
     if (index === PCN) {
       setCurrentCard(parsedCards[0]);
     } else {
@@ -47,7 +57,7 @@ const Card = () => {
     }
   };
 
-  const keyDownHandler = (e) => {
+  const keyDownHandler = (e: any) => {
     if (e.code === "Space") {
       setSwipingPermission(false);
       setCardAnswerClassState(!cardAnswerClassState);
@@ -62,7 +72,9 @@ const Card = () => {
 
   useEffect(() => {
     if (swipingPermission) {
-      const index = parsedCards.findIndex((c) => c.title === currentCard.title);
+      const index = parsedCards.findIndex(
+        (c: any) => c.title === currentCard.title
+      );
       if (swipeDirection === "left") swipeLeft(index);
       else if (swipeDirection === "right") swipeRight(index);
     } else {
@@ -90,8 +102,8 @@ const Card = () => {
 
       <div className={styles.status}>
         <p>
-          {parsedCards.findIndex((c) => c.title === currentCard.title) + 1}/
-          {parsedCards.length}
+          {parsedCards.findIndex((c: any) => c.title === currentCard.title) + 1}
+          /{parsedCards.length}
         </p>
       </div>
     </>

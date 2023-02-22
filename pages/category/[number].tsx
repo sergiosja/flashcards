@@ -5,10 +5,12 @@ import { useState } from "react";
 import Modal from "../../components/Modal";
 import styles from "../../styles/Category.module.css";
 
+// anys
+
 export const getStaticPaths = async () => {
   const response = await fetch("http://localhost:8080/data");
   const data = await response.json();
-  const paths = data.map((entry) => {
+  const paths = data.map((entry: any) => {
     return {
       params: {
         number: entry.id.toString(),
@@ -22,7 +24,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: any) => {
   const id = context.params.number;
   const response = await fetch(`http://localhost:8080/data/${id}`);
   const category = await response.json();
@@ -32,7 +34,7 @@ export const getStaticProps = async (context) => {
   };
 };
 
-const Category = ({ category }) => {
+const Category = ({ category }: any) => {
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [showCardModal, setShowCardModal] = useState(false);
   const [index, setIndex] = useState(0);
@@ -40,7 +42,7 @@ const Category = ({ category }) => {
   const [newCardStatus, setNewCardStatus] = useState(false);
 
   // Toggle display of modals
-  const toggleModal = (setter, value) => {
+  const toggleModal = (setter: any, value: any) => {
     if (setter === setShowTopicModal && showCardModal === true) {
       setShowCardModal(false);
     } else if (setter === setShowCardModal && showTopicModal === true) {
@@ -50,13 +52,13 @@ const Category = ({ category }) => {
   };
 
   // Toggle display of card modal with right index
-  const toggleCardModal = (index) => {
+  const toggleCardModal = (index: number) => {
     toggleModal(setShowCardModal, showCardModal);
     setIndex(index);
   };
 
   // After a new topic has been added
-  const handleNewTopic = (newTitle) => {
+  const handleNewTopic = (newTitle: string) => {
     const newTopics = [
       ...data,
       { title: newTitle, cards: [], id: data.length + 1 },
@@ -97,7 +99,12 @@ const Category = ({ category }) => {
         </div>
 
         {showTopicModal && (
-          <Modal category={category} matter="topic" onUpdate={handleNewTopic} />
+          <Modal
+            category={category}
+            matter="topic"
+            onUpdate={handleNewTopic}
+            index={undefined}
+          />
         )}
 
         {/* Modal for cards */}
@@ -112,7 +119,7 @@ const Category = ({ category }) => {
 
         {/* Topics */}
         {data &&
-          data.map((topic) => (
+          data.map((topic: any) => (
             <div key={topic.id} className={styles.container}>
               <Link
                 href={{
@@ -120,7 +127,14 @@ const Category = ({ category }) => {
                   query: {
                     title: topic.title,
                     id: topic.id,
-                    cards: encodeURIComponent(JSON.stringify(topic.cards)),
+                    cards: encodeURIComponent(
+                      JSON.stringify(
+                        // Shuffles cards
+                        topic.cards.sort(
+                          (a: any, b: any) => 0.5 - Math.random()
+                        )
+                      )
+                    ),
                     categoryId: category.id,
                   },
                 }}

@@ -32,8 +32,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# other
-150other.txt
-200adjectives.txt
-500nouns.txt
-500verbs.txt
+# typescript
+*.tsbuildinfo
+next-env.d.ts

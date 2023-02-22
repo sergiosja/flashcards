@@ -1,11 +1,23 @@
 import Head from "next/head";
-import Link from "next/link";
-import { useState } from "react";
 import Modal from "../components/Modal";
 import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { Key, useState } from "react";
+//import Modal from "../components/Modal";
+
+// må fikse
+interface Props {
+  categoryTitles: any;
+}
+
+interface CategoryType {
+  title: String;
+  topics: Array<any>;
+  id: Key;
+}
 
 export const getStaticProps = async () => {
-  const response = await fetch("http://localhost:8080/titles/");
+  const response: Response = await fetch("http://localhost:8080/titles/");
   const categoryTitles = await response.json();
 
   return {
@@ -13,7 +25,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function Home({ categoryTitles }) {
+export default function Home({ categoryTitles }: Props) {
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [data, setData] = useState(categoryTitles);
 
@@ -21,7 +33,7 @@ export default function Home({ categoryTitles }) {
     setShowCategoryModal(!showCategoryModal);
   };
 
-  const handleUpdate = (newTitle) => {
+  const handleUpdate = (newTitle: String) => {
     setData([...data, { title: newTitle, id: data.length + 1 }]);
     setShowCategoryModal(false);
   };
@@ -43,12 +55,17 @@ export default function Home({ categoryTitles }) {
         </div>
 
         {showCategoryModal && (
-          <Modal matter="category" onUpdate={handleUpdate} />
+          <Modal
+            matter="category"
+            onUpdate={handleUpdate}
+            category={undefined}
+            index={undefined}
+          />
         )}
 
         {/* Categories */}
         {data &&
-          data.map((categoryTitle) => (
+          data.map((categoryTitle: CategoryType) => (
             <div className={styles.container} key={categoryTitle.id}>
               <Link
                 href={`/category/${categoryTitle.id}`}
