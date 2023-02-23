@@ -2,7 +2,7 @@ import Head from "next/head";
 import Modal from "../components/Modal";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { Key, useState } from "react";
+import { useState } from "react";
 import { CategoryTitle } from "./types/types";
 
 interface Props {
