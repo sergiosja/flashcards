@@ -1,16 +1,25 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useState } from "react";
 import Modal from "../../components/Modal";
+import { useEffect } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Card, Topic, CategoryType } from "../types/types";
 import styles from "../../styles/Category.module.css";
 
-// anys
+interface Context {
+  params: {
+    number: number;
+  };
+}
+
+interface Props {
+  category: CategoryType;
+}
 
 export const getStaticPaths = async () => {
   const response = await fetch("http://localhost:8080/data");
   const data = await response.json();
-  const paths = data.map((entry: any) => {
+  const paths = data.map((entry: CategoryType) => {
     return {
       params: {
         number: entry.id.toString(),
@@ -24,7 +33,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context: any) => {
+export const getStaticProps = async (context: Context) => {
   const id = context.params.number;
   const response = await fetch(`http://localhost:8080/data/${id}`);
   const category = await response.json();
@@ -34,15 +43,15 @@ export const getStaticProps = async (context: any) => {
   };
 };
 
-const Category = ({ category }: any) => {
+const Category = ({ category }: Props) => {
   const [showTopicModal, setShowTopicModal] = useState(false);
   const [showCardModal, setShowCardModal] = useState(false);
   const [index, setIndex] = useState(0);
   const [data, setData] = useState(category.topics);
   const [newCardStatus, setNewCardStatus] = useState(false);
 
-  // Toggle display of modals
-  const toggleModal = (setter: any, value: any) => {
+  // Toggle display of modals (type of useState-setter is silly)
+  const toggleModal = (setter: any, value: Boolean) => {
     if (setter === setShowTopicModal && showCardModal === true) {
       setShowCardModal(false);
     } else if (setter === setShowCardModal && showTopicModal === true) {
@@ -119,7 +128,7 @@ const Category = ({ category }: any) => {
 
         {/* Topics */}
         {data &&
-          data.map((topic: any) => (
+          data.map((topic: Topic) => (
             <div key={topic.id} className={styles.container}>
               <Link
                 href={{
@@ -131,7 +140,7 @@ const Category = ({ category }: any) => {
                       JSON.stringify(
                         // Shuffles cards
                         topic.cards.sort(
-                          (a: any, b: any) => 0.5 - Math.random()
+                          (a: Card, b: Card) => 0.5 - Math.random()
                         )
                       )
                     ),

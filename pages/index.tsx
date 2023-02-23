@@ -3,17 +3,10 @@ import Modal from "../components/Modal";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { Key, useState } from "react";
-//import Modal from "../components/Modal";
+import { CategoryTitle } from "./types/types";
 
-// må fikse
 interface Props {
-  categoryTitles: any;
-}
-
-interface CategoryType {
-  title: String;
-  topics: Array<any>;
-  id: Key;
+  categoryTitles: CategoryTitle[];
 }
 
 export const getStaticProps = async () => {
@@ -33,7 +26,7 @@ export default function Home({ categoryTitles }: Props) {
     setShowCategoryModal(!showCategoryModal);
   };
 
-  const handleUpdate = (newTitle: String) => {
+  const handleUpdate = (newTitle: string) => {
     setData([...data, { title: newTitle, id: data.length + 1 }]);
     setShowCategoryModal(false);
   };
@@ -65,7 +58,7 @@ export default function Home({ categoryTitles }: Props) {
 
         {/* Categories */}
         {data &&
-          data.map((categoryTitle: CategoryType) => (
+          data.map((categoryTitle: CategoryTitle) => (
             <div className={styles.container} key={categoryTitle.id}>
               <Link
                 href={`/category/${categoryTitle.id}`}

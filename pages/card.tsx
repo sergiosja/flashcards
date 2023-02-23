@@ -1,23 +1,18 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { Card } from "./types/types";
 import styles from "../styles/Card.module.css";
 
-interface CardObjectType {
-  title: string;
-  answer: string;
-  id: number;
+interface EventHandler {
+  code: string;
 }
-
-// anys
 
 const Card = () => {
   // Unpacking props sent via Link component in topic.js
   const router = useRouter();
   const { title, cards }: any = router.query;
-  const parsedCards: Array<CardObjectType> = JSON.parse(
-    decodeURIComponent(cards)
-  );
+  const parsedCards: Card[] = JSON.parse(decodeURIComponent(cards));
 
   const PCN = parsedCards.length - 1;
 
@@ -57,7 +52,7 @@ const Card = () => {
     }
   };
 
-  const keyDownHandler = (e: any) => {
+  const keyDownHandler = (e: EventHandler) => {
     if (e.code === "Space") {
       setSwipingPermission(false);
       setCardAnswerClassState(!cardAnswerClassState);
@@ -73,7 +68,7 @@ const Card = () => {
   useEffect(() => {
     if (swipingPermission) {
       const index = parsedCards.findIndex(
-        (c: any) => c.title === currentCard.title
+        (c: Card) => c.title === currentCard.title
       );
       if (swipeDirection === "left") swipeLeft(index);
       else if (swipeDirection === "right") swipeRight(index);
@@ -102,7 +97,8 @@ const Card = () => {
 
       <div className={styles.status}>
         <p>
-          {parsedCards.findIndex((c: any) => c.title === currentCard.title) + 1}
+          {parsedCards.findIndex((c: Card) => c.title === currentCard.title) +
+            1}
           /{parsedCards.length}
         </p>
       </div>
